@@ -133,9 +133,10 @@ def pm_stream(reddit):
 
 
 def run_stream_loop(reddit, stream, args):
+    max_age = timedelta(seconds=args.max_age)
     while True:
         for text, author, created_time, callback in stream:
-            if created_time < datetime.utcnow() - timedelta(seconds=args.max_age):
+            if created_time < datetime.utcnow() - max_age:
                 continue
 
             if not text:
