@@ -23,8 +23,6 @@ CLIENT_SECRET = os.getenv("DCB_CLIENT_SECRET", "")
 USERNAME = os.getenv("DCB_USERNAME", "deck-code-bot")
 PASSWORD = os.getenv("DCB_PASSWORD", "")
 
-SUBREDDITS = os.getenv("DCB_SUBREDDITS", "DeckCodeBotTest")
-
 
 def init_reddit():
     if not CLIENT_ID or not CLIENT_SECRET:
@@ -65,8 +63,8 @@ def is_blacklisted(reddit, user) -> bool:
     ]
 
 
-def comment_stream(reddit):
-    for comment in reddit.subreddit(SUBREDDITS).stream.comments():
+def comment_stream(reddit, subreddit):
+    for comment in reddit.subreddit(subreddit).stream.comments():
         text = getattr(comment, "body", "").strip()
         created_time = datetime.utcfromtimestamp(comment.created_utc)
 
@@ -100,8 +98,8 @@ def comment_stream(reddit):
         yield text, comment.author, created_time, callback
 
 
-def submission_stream(reddit):
-    for submission in reddit.subreddit(SUBREDDITS).stream.submissions():
+def submission_stream(reddit, subreddit):
+    for submission in reddit.subreddit(subreddit).stream.submissions():
         text = getattr(submission, "selftext", "").strip()
         created_time = datetime.utcfromtimestamp(submission.created_utc)
 
@@ -160,6 +158,7 @@ def main() -> int:
     p = argparse.ArgumentParser()
     p.add_argument("files", nargs="*")
     p.add_argument("--locale", default="enUS")
+    p.add_argument("--subreddit", default="DeckCodeBotTest")
     p.add_argument("--stream", default="local", choices=[
         "local", "comments", "submissions", "pms"
     ])
@@ -176,9 +175,9 @@ def main() -> int:
     reddit = init_reddit()
 
     if args.stream == "comments":
-        stream = comment_stream(reddit)
+        stream = comment_stream(reddit, args.subreddit)
     elif args.stream == "submissions":
-        stream = submission_stream(reddit)
+        stream = submission_stream(reddit, args.subreddit)
     elif args.stream == "pms":
         stream = pm_stream(reddit)
 
