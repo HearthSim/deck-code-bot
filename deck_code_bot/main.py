@@ -12,7 +12,7 @@ MAX_CHARACTERS = 10000
 I_AM_A_BOT = " ^".join("""
 ^I am a bot. Comment/PM with a deck code and I'll decode it. If you
 don't want me to reply to you, include \"###\" anywhere in your message.
-[About.](https://www.reddit.com/r/hearthstone/comments/6o1hv9/introducing_deckcodebot/)
+[About.](https://github.com/HearthSim/deck-code-bot/blob/master/README.md)
 """.strip().split())
 
 
