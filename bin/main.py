@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 """
-Reddit Deckstring Bot
-https://www.reddit.com/r/redditdev/comments/5tmetp/get_stream_of_both_submissions_and_comments/
+deck-code-bot
+A bot for decoding Hearthstone deck codes on Reddit
+https://www.reddit.com/user/deck-code-bot
 """
 
 import os, sys; sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # noqa isort:skip
@@ -45,6 +46,7 @@ _blocklist_ts = 0
 
 
 def get_cached_blocklist(reddit):
+    """ This saves us a bunch of expensive API calls """
     global _cached_blocklist
     global _blocklist_ts
     if _blocklist_ts < int(datetime.utcnow().timestamp()) - 600:
@@ -58,6 +60,7 @@ def get_cached_blocklist(reddit):
 
 
 def is_blacklisted(reddit, user) -> bool:
+    """ Don't reply to self or blocked users """
     return str(user).lower() in [USERNAME.lower()] + [
         str(u).lower() for u in get_cached_blocklist(reddit)
     ]

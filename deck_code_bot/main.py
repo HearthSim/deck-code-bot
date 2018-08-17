@@ -5,7 +5,7 @@ from urllib.parse import quote
 import string
 
 
-base64_alphabet = string.ascii_letters + string.digits + '+/= \n'
+base64_alphabet = string.ascii_letters + string.digits + '+/= \n#'
 
 MAX_CHARACTERS = 10000
 
@@ -24,7 +24,11 @@ def find_and_decode_deckstrings(text):
     b64_text = remove_non_b64(text)
     decks = []
     for chunk in b64_text.split():
+        if any(word in chunk for word in ["###", "#\#\#"]):
+            return []
         if not chunk.startswith(("AAEBA", "AAECA")):
+            continue
+        if chunk in [deck._deckstring for deck in decks]:
             continue
         try:
             deck = Deck.from_deckstring(chunk)
