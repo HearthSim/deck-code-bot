@@ -1,4 +1,5 @@
 # deck-code-bot
+
 A bot for decoding Hearthstone deck codes on Reddit
 
 https://www.reddit.com/user/deck-code-bot
@@ -7,8 +8,8 @@ Welcome to version 2.0 of deck-code-bot! This bot checks comments and submission
 a few other subreddits for deck codes (also known as deckstrings), which are the Base64 strings of characters that encode
 Hearthstone decks and enable them to be shared among players. Ordinarily, to see the contents of a deck encoded in a deck code,
 one would need to open one's Hearthstone client, import the code, and let the game populate the deck with cards. But with
-deck-code-bot, simply pasting the code into a comment, submission, or PM will trigger a reply with a nicely-formatted list of 
-cards, along with card images and helpful links for HSReplay and the Hearthstone Wiki.
+deck-code-bot, simply pasting the code into a comment, submission, or PM will trigger a reply with a nicely-formatted list of
+cards, along with card images and helpful links for HSReplay.net and the Hearthstone Wiki.
 
 If you post two or more deck codes in the same post, deck-code-bot will attempt to return as many card lists as it can, up to
 the reddit comment/PM character limit (10,000). For ordinary 30-card decks, usually just one or two lists will fit.

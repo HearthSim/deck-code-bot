@@ -1,4 +1,4 @@
-import os, sys; sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import os
 
 from deck_code_bot.main import find_and_decode_deckstrings
 

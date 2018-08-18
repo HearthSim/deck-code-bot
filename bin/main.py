@@ -5,19 +5,20 @@ A bot for decoding Hearthstone deck codes on Reddit
 https://www.reddit.com/user/deck-code-bot
 """
 
-import os, sys; sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # noqa isort:skip
 import argparse
+import os
+import sys
 from datetime import datetime, timedelta
 from time import sleep
 
 import praw
 from praw.models import Message
+
 from deck_code_bot.main import find_and_decode_deckstrings, make_reply, markdown_link
 
 
 USER_AGENT = os.getenv(
-    "DCB_USER_AGENT",
-    "deck-code-bot v2.0 (https://github.com/HearthSim/deck-code-bot)"
+    "DCB_USER_AGENT", "deck-code-bot v2.0 (https://github.com/HearthSim/deck-code-bot)"
 )
 CLIENT_ID = os.getenv("DCB_CLIENT_ID", "")
 CLIENT_SECRET = os.getenv("DCB_CLIENT_SECRET", "")
@@ -109,7 +110,9 @@ def submission_stream(reddit, subreddit):
         def callback(decks):
             comments = submission.comments
             # Check whether we already replied to the post
-            if USERNAME.lower() in [str(comment.author).lower() for comment in comments]:
+            if USERNAME.lower() in [
+                str(comment.author).lower() for comment in comments
+            ]:
                 return
 
             reply_text = make_reply(decks, locale="enUS")
@@ -163,9 +166,9 @@ def main() -> int:
     p.add_argument("files", nargs="*")
     p.add_argument("--locale", default="enUS")
     p.add_argument("--subreddit", default="DeckCodeBotTest")
-    p.add_argument("--stream", default="local", choices=[
-        "local", "comments", "submissions", "pms"
-    ])
+    p.add_argument(
+        "--stream", default="local", choices=["local", "comments", "submissions", "pms"]
+    )
     p.add_argument("--max-age", type=int, default=120)
     args = p.parse_args(sys.argv[1:])
 
@@ -190,6 +193,8 @@ def main() -> int:
     except KeyboardInterrupt:
         sys.stderr.write("Aborted!\n")
         return 1
+
+    return 0
 
 
 if __name__ == "__main__":

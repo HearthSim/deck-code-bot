@@ -1,19 +1,22 @@
+import string
+from urllib.parse import quote
+
 from hearthstone.cardxml import load_dbf
 from hearthstone.deckstrings import Deck
-from hearthstone.enums import get_localized_name, ZodiacYear
-from urllib.parse import quote
-import string
+from hearthstone.enums import ZodiacYear, get_localized_name
 
 
-base64_alphabet = string.ascii_letters + string.digits + '+/= \n#'
+base64_alphabet = string.ascii_letters + string.digits + "+/= \n#"
 
 MAX_CHARACTERS = 10000
 
-I_AM_A_BOT = " ^".join("""
+I_AM_A_BOT = " ^".join(
+    """
 ^I am a bot. Comment/PM with a deck code and I'll decode it. If you
 don't want me to reply to you, include \"###\" anywhere in your message.
 [About.](https://github.com/HearthSim/deck-code-bot/blob/master/README.md)
-""".strip().split())
+""".strip().split()
+)
 
 
 def remove_non_b64(text):
@@ -50,7 +53,7 @@ def pretty_zodiac_year(year):
         ZodiacYear.PRE_STANDARD: "Vanilla",
         ZodiacYear.KRAKEN: "Year of the Kraken",
         ZodiacYear.MAMMOTH: "Year of the Mammoth",
-        ZodiacYear.RAVEN: "Year of the Raven"
+        ZodiacYear.RAVEN: "Year of the Raven",
     }.get(year, "(unknown)")
 
 
@@ -108,20 +111,22 @@ def make_reply(decks, locale="enUS"):
         for card, count in cards:
             english_card = english_db[card.dbf_id]
             image = get_card_image(card, locale)
-            rows.append((
-                card.cost,
-                markdown_link(card.name, image),
-                count,
-                get_card_links(card, english_card, locale)
-            ))
+            rows.append(
+                (
+                    card.cost,
+                    markdown_link(card.name, image),
+                    count,
+                    get_card_links(card, english_card, locale),
+                )
+            )
 
-        table = tabulate(
-            rows, headers=("Mana", "Card Name", "Qty", "Links")
-        )
+        total_dust = sum(card.crafting_costs[0] for card, count in cards)
+
+        table = tabulate(rows, headers=("Mana", "Card Name", "Qty", "Links"))
         reply_chunks.append(table)
 
         reply_chunks.append("\n")
-        reply_chunks.append("**Total Dust:** {}".format(sum(card.crafting_costs[0] for card, count in cards)))
+        reply_chunks.append(f"**Total Dust:** {total_dust}")
         reply_chunks.append("\n")
 
         reply_chunks.append(f"**Deck Code:** {deck.as_deckstring}")
@@ -143,10 +148,12 @@ def get_card_links(card, english_card, locale):
     hsreplaynet_link = get_hsreplaynet_link(card, locale)
     gamepedia_link = get_gamepedia_link(english_card)
 
-    return ",".join((
-        markdown_link("HSReplay", hsreplaynet_link),
-        markdown_link("Wiki", gamepedia_link),
-    ))
+    return ",".join(
+        (
+            markdown_link("HSReplay", hsreplaynet_link),
+            markdown_link("Wiki", gamepedia_link),
+        )
+    )
 
 
 def get_hsreplaynet_link(card, locale):
@@ -157,7 +164,9 @@ def get_hsreplaynet_link(card, locale):
             "ptBR": "pt-br",
             "zhCN": "zh-hans",
             "zhTW": "zh-hant",
-        }.get(locale, locale[:2]) # pull first two characters by default
+        }.get(
+            locale, locale[:2]
+        )  # pull first two characters by default
         ret += f"?hl={locale}"
 
     return ret
@@ -168,4 +177,6 @@ def get_gamepedia_link(card):
 
 
 def get_card_image(card, locale):
-    return f"https://art.hearthstonejson.com/v1/render/latest/{locale}/512x/{card.id}.png"
+    return (
+        f"https://art.hearthstonejson.com/v1/render/latest/{locale}/512x/{card.id}.png"
+    )
