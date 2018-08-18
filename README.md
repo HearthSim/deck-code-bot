@@ -27,3 +27,8 @@ Thanks and enjoy,
 Will
 
 https://www.reddit.com/user/ziphion
+
+
+## Running the tests
+
+To run the tests, install tox (`pip install tox`) and run `tox`.
