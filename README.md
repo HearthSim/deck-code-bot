@@ -1,5 +1,7 @@
 # deck-code-bot
 
+[![Build Status](https://api.travis-ci.org/HearthSim/deck-code-bot.svg?branch=master)](https://travis-ci.org/HearthSim/deck-code-bot)
+
 A bot for decoding Hearthstone deck codes on Reddit
 
 https://www.reddit.com/user/deck-code-bot
