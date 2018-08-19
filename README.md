@@ -34,3 +34,9 @@ https://www.reddit.com/user/ziphion
 ## Running the tests
 
 To run the tests, install tox (`pip install tox`) and run `tox`.
+
+
+## License
+
+This project is licensed under the terms of the MIT license.
+See the LICENSE file for the full license text.
