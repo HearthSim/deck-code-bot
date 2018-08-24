@@ -89,10 +89,13 @@ def comment_stream(reddit, subreddit):
 
                     # Is the deckstring present in the post?
                     if deckstring in other_comment.body:
-                        reply_text = markdown_link(
-                            "Click here for decklist", other_comment.permalink
-                        )
-                        break
+                        if str(comment.parent().author).lower() == USERNAME.lower():
+                            return
+                        else:
+                            reply_text = markdown_link(
+                                "Click here for decklist", other_comment.permalink
+                            )
+                            break
 
             if not reply_text:
                 reply_text = make_reply(decks, locale="enUS")
