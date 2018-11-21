@@ -1,5 +1,4 @@
 # https://travis-ci.org/HearthSim/deck-code-bot
-sudo: false
 language: python
 
 python: "3.6"
