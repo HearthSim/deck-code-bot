@@ -120,7 +120,7 @@ def make_reply(decks, locale="enUS"):
                 )
             )
 
-        total_dust = sum(card.crafting_costs[0]*count for card, count in cards)
+        total_dust = sum(card.crafting_costs[0] * count for card, count in cards)
 
         table = tabulate(rows, headers=("Mana", "Card Name", "Qty", "Links"))
         reply_chunks.append(table)
