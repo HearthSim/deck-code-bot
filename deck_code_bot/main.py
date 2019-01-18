@@ -27,7 +27,7 @@ def find_and_decode_deckstrings(text):
     b64_text = remove_non_b64(text)
     decks = []
     for chunk in b64_text.split():
-        if any(word in chunk for word in ["###", "#\#\#"]):
+        if any(word in chunk for word in ["###", "#\\#\\#"]):
             return []
         if not chunk.startswith(("AAEBA", "AAECA")):
             continue
