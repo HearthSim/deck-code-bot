@@ -29,7 +29,7 @@ def find_and_decode_deckstrings(text):
     for chunk in b64_text.split():
         if any(word in chunk for word in ["###", "#\\#\\#"]):
             return []
-        if not chunk.startswith(("AAEBA", "AAECA")):
+        if not chunk.startswith(("AAEBA", "AAECA", "AAEDA")):
             continue
         if chunk in [deck._deckstring for deck in decks]:
             continue
