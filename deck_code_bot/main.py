@@ -57,6 +57,7 @@ def pretty_zodiac_year(year):
         ZodiacYear.DRAGON: "Year of the Dragon",
         ZodiacYear.PHOENIX: "Year of the Phoenix",
         ZodiacYear.GRYPHON: "Year of the Gryphon",
+        ZodiacYear.HYDRA: "Year of the Hydra",
     }.get(year, "(unknown)")
 
 
