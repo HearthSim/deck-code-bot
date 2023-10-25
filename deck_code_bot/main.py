@@ -86,7 +86,7 @@ def calculate_reply_length(reply_chunks):
 def make_reply(decks, locale="enUS"):
     db, _ = load_dbf(locale=locale)
     if locale != "enUS":
-        english_db, _ = load_dbf(locale="enUS")  # For Gamepedia links
+        english_db, _ = load_dbf(locale="enUS")  # For Wiki links
     else:
         english_db = db
 
@@ -151,12 +151,12 @@ def make_reply(decks, locale="enUS"):
 
 def get_card_links(card, english_card, locale):
     hsreplaynet_link = get_hsreplaynet_link(card, locale)
-    gamepedia_link = get_gamepedia_link(english_card)
+    wiki_link = get_wiki_link(english_card)
 
     return ",".join(
         (
             markdown_link("HSReplay", hsreplaynet_link),
-            markdown_link("Wiki", gamepedia_link),
+            markdown_link("Wiki", wiki_link),
         )
     )
 
@@ -177,8 +177,8 @@ def get_hsreplaynet_link(card, locale):
     return ret
 
 
-def get_gamepedia_link(card):
-    return f"https://hearthstone.gamepedia.com/{quote(card.name)}"
+def get_wiki_link(card):
+    return f"https://hearthstone.wiki.gg/{quote(card.name)}"
 
 
 def get_card_image(card, locale):
